@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailGuard | Spam Checker Tool</title>
+    <link rel="stylesheet" href="./EmailGuard _ Spam Checker Tool_files/all.min.css">
+    <link href="./EmailGuard _ Spam Checker Tool_files/css2" rel="stylesheet">
+    <style>
+        /* CSS Styles */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --danger: #f94144;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: #f9fafb;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeIn 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            padding: 40px 0;
+            margin-bottom: 60px;
+        }
+
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-card, .results-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .input-card:hover, .results-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .analyze-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .analyze-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        .score-bar {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .score-progress {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(to right, var(--success), var(--warning), var(--danger));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .category {
+            margin: 20px 0;
+        }
+
+        .category-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .category-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .category-progress {
+            height: 100%;
+            border-radius: 10px;
+            background: var(--primary);
+            width: 0%;
+            transition: width 1s ease 0.3s;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 40px;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            counter-reset: step-counter;
+        }
+
+        .step {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            counter-increment: step-counter;
+        }
+
+        .step:before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            padding: 0 20px 20px;
+            max-height: 300px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--success);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #c5c6c7;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2f2f2f;
+            color: #c5c6c7;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML Content -->
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>EmailGuard</span>
+                </div>
+                <div class="nav-links">
+                    <a href="http://127.0.0.1:5500/index.html#">Home</a>
+                    <a href="http://127.0.0.1:5500/index.html#">Features</a>
+                    <a href="http://127.0.0.1:5500/index.html#">How It Works</a>
+                    <a href="http://127.0.0.1:5500/index.html#">Pricing</a>
+                    <a href="http://127.0.0.1:5500/index.html#">Contact</a>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline">Log In</button>
+                    <button class="btn btn-primary">Sign Up</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in" style="opacity: 1; transform: translateY(0px);">Check Your Emails for Spam</h1>
+            <p class="fade-in delay-1" style="opacity: 1; transform: translateY(0px);">Our advanced algorithm analyzes your email content to detect spam triggers and improve deliverability.</p>
+            <button class="btn btn-primary fade-in delay-2" style="opacity: 1; transform: translateY(0px);">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Tool Section -->
+    <section class="tool-section container">
+        <div class="tool-container">
+            <div class="input-card fade-in">
+                <h2 class="card-title"><i class="fas fa-envelope"></i> Paste Your Email</h2>
+                <textarea placeholder="Paste your email content here..."></textarea>
+                <button class="analyze-btn">Analyze for Spam</button>
+            </div>
+            
+            <div class="results-card fade-in delay-1">
+                <h2 class="card-title"><i class="fas fa-chart-pie"></i> Spam Analysis</h2>
+                <div class="score-display">
+                    <div class="score-value">0%</div>
+                    <div class="score-label">Spam Score</div>
+                </div>
+                <div class="score-bar">
+                    <div class="score-progress"></div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-name">
+                        <span>Urgency Words</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-name">
+                        <span>Shady Language</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-name">
+                        <span>Overpromising</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-name">
+                        <span>Unnatural Language</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Spam Checker</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Real-Time Analysis</h3>
+                    <p>Get instant feedback on your email content with our advanced algorithm.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Detailed Reports</h3>
+                    <p>Receive comprehensive breakdowns of potential spam triggers.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Suggestions</h3>
+                    <p>Get actionable recommendations to improve your email deliverability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step fade-in">
+                <h3 class="step-title">Paste Your Email</h3>
+                <p>Copy and paste your email content into our analysis tool.</p>
+            </div>
+            
+            <div class="step fade-in delay-1">
+                <h3 class="step-title">Run Analysis</h3>
+                <p>Our algorithm scans your content for spam triggers and problematic phrases.</p>
+            </div>
+            
+            <div class="step fade-in delay-2">
+                <h3 class="step-title">Review Results</h3>
+                <p>Get a detailed breakdown of your spam score and areas for improvement.</p>
+            </div>
+            
+            <div class="step fade-in delay-3">
+                <h3 class="step-title">Improve &amp; Resend</h3>
+                <p>Use our suggestions to optimize your email and improve deliverability.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="accordion">
+                <div class="accordion-item fade-in">
+                    <div class="accordion-header">
+                        How accurate is the spam checker? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Our spam checker uses advanced algorithms and constantly updated databases to provide accurate spam detection. However, no tool can guarantee 100% accuracy as spam filters are constantly evolving.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item fade-in delay-1">
+                    <div class="accordion-header">
+                        Is my email content stored? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>We take privacy seriously. Your email content is analyzed in real-time but never stored on our servers after the analysis is complete.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item fade-in delay-2">
+                    <div class="accordion-header">
+                        Can I use this for bulk emails? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes, we offer bulk email analysis for businesses and marketers. Check out our premium plans for more information.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item fade-in delay-3">
+                   极速快三
+                    <div class="accordion-header">
+                        How often is the algorithm updated? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Our algorithm is updated weekly with new spam patterns and triggers to ensure the highest accuracy possible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>EmailGuard</h3>
+                    <p>The most advanced spam detection tool for marketers and businesses.</p>
+                    <div class="social-links">
+                        <a href="http://127.0.0.1:5500/index.html#"><i class="fab fa-twitter"></i></a>
+                        <a href="http://127.0.0.1:5500/index.html#"><i class="fab fa-facebook"></i></a>
+                        <a href="http://127.0.0.1:5500/index.html#">&lt;极速快三i class="fab fa-linkedin"&gt;</a>
+                        <a href="http://127.0.0.1:5500/index.html#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="http://127.0.0.1:5500/index.html#">Features</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Pricing</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Use Cases</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul极速快三 class="footer-links">
+                        <li><a href="http://127.0.0.1:5500/index.html#">Blog</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Guides</a></li>
+                        &lt;极速快三li&gt;<a href="http://127.0.0.1:5500/index.html#">Webinars</a>
+                        <li><a href="http://127.0.0.1:5500/index.html#">API Docs<!--极速快三--></a></li><a href="http://127.0.0.1:5500/index.html#">
+                    
+                </a></ul极速快三></div><a href="http://127.0.0.1:5500/index.html#">
+                
+                </a><div class="footer-column"><a href="http://127.0.0.1:5500/index.html#">
+                    <h3>Company</h3>
+                    </a><ul class="footer-links"><a href="http://127.0.0.1:5500/index.html#">
+                        </a><li><a href="http://127.0.0.1:5500/index.html#"></a><a href="http://127.0.0.1:5500/index.html#">About Us</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Careers</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Privacy Policy</a></li>
+                        <li><a href="http://127.0.0.1:5500/index.html#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 EmailGuard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript Code
+        document.addEventListener('DOMContentLoaded', function() {
+            // Accordion functionality
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const isActive = content.classList.contains('active');
+                    
+                    // Close all accordion items
+                    document.querySelectorAll('.accordion-content').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    document.querySelectorAll('.accordion-header i').forEach(icon => {
+                        icon.className = 'fas fa-chevron-down';
+                    });
+                    
+                    // Open clicked item if it was closed
+                    if (!isActive) {
+                        content.classList.add('active');
+                        this.querySelector('i').className = 'fas fa-chevron-up';
+                    }
+                });
+            });
+            
+            // Analyze button functionality
+            const analyzeBtn = document.querySelector('.analyze-btn');
+            const textarea = document.querySelector('textarea');
+            const scoreValue = document.querySelector('.score-value');
+            const scoreProgress = document.querySelector('.score-progress');
+            const categoryProgresses = document.querySelectorAll('.category-progress');
+            const categoryValues = document.querySelectorAll('.category-name span:last-child');
+            
+            analyzeBtn.addEventListener('click', function() {
+                const text = textarea.value.trim();
+                
+                if (text === '') {
+                    alert('Please paste some email content to analyze.');
+                    return;
+                }
+                
+                // Simulate analysis with random values
+                const spamScore = Math.floor(Math.random() * 100);
+                scoreValue.textContent = spamScore + '%';
+                scoreProgress.style.width = spamScore + '%';
+                
+                // Update category scores
+                categoryProgresses.forEach((progress, index) => {
+                    const value = Math.floor(Math.random() * 100);
+                    progress.style.width = value + '%';
+                    categoryValues[index].textContent = value + '%';
+                });
+                
+                // Animate the score display
+                scoreValue.style.transition = 'all 1s ease';
+                scoreProgress.style.transition = 'width 1s ease';
+                
+                // Add highlight effect
+                analyzeBtn.textContent = 'Analyzing...';
+                analyzeBtn.style.opacity = '极速快三0.8';
+                
+                setTimeout(() => {
+                    analyzeBtn.textContent = 'Analyze Complete!';
+                    analyzeBtn.style.background = 'var(--success)';
+                    
+                    setTimeout(() => {
+                        analyzeBtn.textContent = 'Analyze for Spam';
+                        analyzeBtn.style.background = '';
+                        analyzeBtn.style.opacity = '1';
+                    }, 2000);
+                }, 1500);
+            });
+            
+            // Fade in elements on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    
+                    if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Initial check
+            checkFade();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkFade);
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>
